@@ -1,0 +1,41 @@
+import re
+student_records = [
+    {
+        'student_id': 'ST1001',
+        'name': 'Ama Mensah',
+        'age': 20,
+        'program': 'Computer Science',
+        'level': 200,
+        'courses': ['Python', 'Calculus']
+    },
+    {
+        'student_id': 'ST1002',
+        'name': 'Marian Arthur',
+        'age': 19,
+        'program':'Medical laboratory science',
+        'level':100,
+        'courses':['Biology','Chemistry']
+    },
+    {
+        'student_id': 'ST1003',
+        'name': 'Gloria Arthur',
+        'age': 21,
+        'program': 'Psychology',
+        'level':300,
+        'courses':['Government','Human psychology']
+    }
+]
+
+def find_invalid_records( 
+    student_id,name,age,program,level,courses
+    ):
+    constraints= {
+     'student_id': isinstance(student_id,str) and re.fullmatch( 'ST\d+',student_id,re.IGNORECASE),
+     'name': isinstance(name,str),
+     'age': isinstance(age,int) and age>=16,
+     'program': isinstance(program,str),
+     'level': level in [100,200,300,400],
+     'courses': isinstance(courses,list) and all([isinstance(course,str) for course in courses])      
+          }
+    return [key for key,value in constraints.items() if not value]
+
